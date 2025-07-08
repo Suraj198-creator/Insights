@@ -1,7 +1,4 @@
-from logging import exception
 
-import feedparser
-import requests
 import os
 from dotenv import load_dotenv
 from supabase import create_client, Client
@@ -16,12 +13,7 @@ url: str = os.getenv("SUPABASE_URL")
 key: str = os.getenv("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
-for x in urls:
-    feed = feedparser.parse(x)
-    for entry in feed.entries:
-        TITLE = entry.title
-        LINK = entry.link
-        print()
+
 app = Flask(__name__)
 app.secret_key = os.urandom(24)  # Required for session storage
 
