@@ -24,7 +24,7 @@ def index():
 def update_database():
     email = request.form['email']
     session['email'] = email  # Temporarily store in session
-    return render_template("checklist2.html")
+    return render_template("checklist.html")
 
 
 @app.route('/submit-newsletters', methods=['POST'])
