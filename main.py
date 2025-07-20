@@ -19,12 +19,12 @@ app.secret_key = os.urandom(24)  # Required for session storage
 
 @app.route('/')
 def index():
-    return render_template('test2.html')
+    return render_template('test.html')
 @app.route('/update', methods=['POST'])
 def update_database():
     email = request.form['email']
     session['email'] = email  # Temporarily store in session
-    return render_template("checklist.html")
+    return render_template("checklist2.html")
 
 
 @app.route('/submit-newsletters', methods=['POST'])
@@ -43,7 +43,7 @@ def submit_newsletters():
         if email_resp.data:
             email_id = email_resp.data[0]["id"]
         else:
-            insert_resp = supabase.table("emails").insert({
+            insert_resp = supabase.table("emails").upsert({
                 "email": email,
                 "created_at": datetime.now().isoformat()
             }).execute()
