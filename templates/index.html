@@ -1,0 +1,1115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InSight Daily - Premium Tech Newsletter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --accent-color: #667eea;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--dark-gradient);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.3;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Navigation */
+    .navbar {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.5rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .navbar-brand:hover {
+      text-decoration: none;
+      opacity: 0.8;
+    }
+
+    /* Remove default list styling */
+    .navbar-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      list-style: none;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      padding: 0.5rem 1.25rem;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-left: 0.75rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.95rem;
+    }
+
+    .nav-btn:hover {
+      background: var(--card-bg);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      text-decoration: none;
+    }
+
+    .nav-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Hamburger menu styling */
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.5rem;
+      background: transparent;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+    }
+
+    .navbar-toggler:hover {
+      background: var(--card-bg);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.3);
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    /* Mobile navigation */
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-btn {
+        margin: 0.25rem 0;
+        margin-left: 0;
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    /* Header Section */
+    .hero-section {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .hero-subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      margin-bottom: 3rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .subscriber-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .subscriber-badge:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Email Form */
+    .email-form {
+      max-width: 500px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+
+    .form-control {
+      background: var(--card-bg) !important;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      color: var(--text-primary) !important;
+      padding: 1rem 1.5rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: var(--text-primary) !important;
+    }
+
+    .form-control::placeholder {
+      color: var(--text-secondary);
+    }
+
+    /* Enhanced autofill styling - this is the key fix */
+    .form-control:-webkit-autofill,
+    .form-control:-webkit-autofill:hover,
+    .form-control:-webkit-autofill:focus,
+    .form-control:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px var(--card-bg) inset !important;
+      -webkit-text-fill-color: var(--text-primary) !important;
+      background: var(--card-bg) !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    /* Additional fix for modern browsers */
+    .form-control:-moz-autofill {
+      background: var(--card-bg) !important;
+      color: var(--text-primary) !important;
+    }
+
+    /* Error styling */
+    .form-control.is-invalid {
+      border-color: #dc3545;
+      background: rgba(220, 53, 69, 0.1) !important;
+    }
+
+    .invalid-feedback {
+      display: none;
+      width: 100%;
+      margin-top: 0.25rem;
+      font-size: 0.875rem;
+      color: #dc3545;
+      text-align: center;
+    }
+
+    .invalid-feedback.show {
+      display: block;
+    }
+
+    .btn-primary {
+      background: var(--primary-gradient);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-primary:hover::before {
+      left: 100%;
+    }
+
+    /* Privacy text styling */
+    .privacy-text {
+      color: var(--text-secondary);
+    }
+
+    /* Powered by AI Section */
+    .powered-by-ai-section {
+      padding: 4rem 0;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .ai-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .ai-circuit-pattern {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circuit-lines {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .circuit-line {
+      position: absolute;
+      background: var(--accent-color);
+      border-radius: 1px;
+      opacity: 0.6;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .line-1 {
+      width: 40px;
+      height: 2px;
+      top: 30px;
+      left: 10px;
+      animation-delay: 0s;
+    }
+
+    .line-2 {
+      width: 2px;
+      height: 25px;
+      top: 20px;
+      left: 48px;
+      animation-delay: 0.3s;
+    }
+
+    .line-3 {
+      width: 35px;
+      height: 2px;
+      top: 70px;
+      right: 15px;
+      animation-delay: 0.6s;
+    }
+
+    .line-4 {
+      width: 2px;
+      height: 30px;
+      bottom: 25px;
+      left: 25px;
+      animation-delay: 0.9s;
+    }
+
+    .circuit-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .dot-1 {
+      top: 29px;
+      left: 8px;
+      animation-delay: 0s;
+    }
+
+    .dot-2 {
+      top: 18px;
+      left: 47px;
+      animation-delay: 0.3s;
+    }
+
+    .dot-3 {
+      top: 69px;
+      right: 13px;
+      animation-delay: 0.6s;
+    }
+
+    .dot-4 {
+      bottom: 23px;
+      left: 24px;
+      animation-delay: 0.9s;
+    }
+
+    .dot-5 {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 1.2s;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    .ai-chip {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      background: var(--primary-gradient);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+      border: 2px solid var(--card-border);
+      z-index: 2;
+    }
+
+    .ai-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .ai-label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .powered-text {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .ai-emphasis {
+      font-size: 1.5rem;
+      font-weight: 600;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Features Section */
+    .features-section {
+      padding: 6rem 0;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+      background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .feature-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      height: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--primary-gradient);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .feature-card:hover::before {
+      opacity: 0.05;
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .feature-description {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Newsletter Sample Section */
+    .newsletter-sample {
+      padding: 6rem 0;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+    }
+
+    .newsletter-preview {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 3rem;
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .newsletter-preview::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary-gradient);
+    }
+
+    .newsletter-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .newsletter-date {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .newsletter-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+    }
+
+    .newsletter-item {
+      padding: 1.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .newsletter-item:last-child {
+      border-bottom: none;
+    }
+
+    .newsletter-item h4 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .newsletter-item p {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .read-time {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    /* CTA Section */
+    .cta-section {
+      padding: 6rem 0;
+      text-align: center;
+    }
+
+    .cta-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 4rem 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--primary-gradient);
+      opacity: 0.1;
+    }
+
+    .cta-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-description {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 4rem 0 2rem;
+      border-top: 1px solid var(--card-border);
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--card-border);
+      color: var(--text-secondary);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .newsletter-preview {
+        padding: 2rem;
+      }
+
+      .cta-card {
+        padding: 3rem 1.5rem;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .ai-badge {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+
+      .ai-label {
+        align-items: center;
+      }
+
+      .ai-circuit-pattern {
+        width: 100px;
+        height: 100px;
+      }
+
+      .ai-chip {
+        width: 50px;
+        height: 50px;
+      }
+
+      .ai-text {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">InSight Daily</a>
+    </div>
+  </nav>
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div class="hero-content">
+            <div class="subscriber-badge">
+              <i class="fas fa-users"></i>
+              <span>Join 15,000+ tech professionals</span>
+            </div>
+
+            <h1 class="hero-title">The Future of Tech, Delivered Daily</h1>
+            <p class="hero-subtitle">
+              Cut through the noise with curated insights, breaking developments, and expert analysis
+              from the world's most innovative companies. Your competitive edge starts here.
+            </p>
+
+            <form class="email-form" action="/update" method="POST" id="emailForm">
+              <div class="form-group">
+                <input type="email" name="email" class="form-control" id="emailInput" placeholder="Enter your email address" required>
+                <div class="invalid-feedback" id="emailError"></div>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Get Free Weekly Insights
+              </button>
+            </form>
+
+            <small class="privacy-text d-block mt-3 mb-4">
+              <i class="fas fa-shield-alt me-2"></i>
+              No spam, ever. Unsubscribe in one click.
+            </small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Powered by AI Section -->
+  <section class="powered-by-ai-section">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="ai-badge">
+            <div class="ai-circuit-pattern">
+              <div class="circuit-lines">
+                <div class="circuit-line line-1"></div>
+                <div class="circuit-line line-2"></div>
+                <div class="circuit-line line-3"></div>
+                <div class="circuit-line line-4"></div>
+                <div class="circuit-dot dot-1"></div>
+                <div class="circuit-dot dot-2"></div>
+                <div class="circuit-dot dot-3"></div>
+                <div class="circuit-dot dot-4"></div>
+                <div class="circuit-dot dot-5"></div>
+              </div>
+              <div class="ai-chip">
+                <div class="ai-text">AI</div>
+              </div>
+            </div>
+            <div class="ai-label">
+              <span class="powered-text">Powered by</span>
+              <span class="ai-emphasis">Artificial Intelligence</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section" id="features">
+    <div class="container">
+      <h2 class="section-title">Why Tech Leaders Choose InSight Daily</h2>
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-rocket"></i>
+            </div>
+            <h3 class="feature-title">Cutting-Edge Insights</h3>
+            <p class="feature-description">
+              Stay ahead with exclusive coverage of emerging technologies, startup breakthroughs,
+              and industry shifts.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-clock"></i>
+            </div>
+            <h3 class="feature-title">5-Minute Digest</h3>
+            <p class="feature-description">
+              No information overload. Get the most important tech news and analysis
+              distilled into a quick, actionable morning read.
+            </p>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <h3 class="feature-title">Context That Matters</h3>
+            <p class="feature-description">
+              We don't just summarize headlines — we explain why they matter to product, strategy, and leadership.
+              We don't just tell you what happened. InSights Daily tells you what it means.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- Newsletter Sample Section -->
+<!-- Newsletter Sample Section -->
+<section class="newsletter-sample" id="sample">
+  <div class="container">
+    <h2 class="section-title">What You'll Receive</h2>
+    <div class="newsletter-preview">
+      <div class="newsletter-header">
+        <div class="newsletter-date">Sunday, July 20, 2025</div>
+        <h3 class="newsletter-title">InSight Daily AI</h3>
+        <p class="newsletter-subtitle">Top AI Stories Today: Developer Tools Valued at $180M, AI Moves to Browsers, and the Rise of Research Agents</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-dollar-sign me-2"></i><a href="https://techcrunch.com/2025/07/18/benchmark-in-talks-to-lead-series-a-for-greptile-valuing-ai-code-reviewer-at-180m-sources-say/" style="color: #667eea; text-decoration: none;">Benchmark in talks to lead series a for greptile, valuing ai-code reviewer at $180m, sources say</a> <span class="read-time">4 min read</span></h4>
+        <p><strong>What's happening?</strong><br>Greptile, a startup building an AI-powered code reviewer, is reportedly in advanced talks for a Series A funding round led by the venture capital firm Benchmark. Sources claim the deal could value Greptile at $180 million. The company's AI bot is designed to understand entire codebases, allowing it to identify bugs and suggest improvements with the context of the full project, similar to a human senior engineer.</p>
+        <p><strong>Why it matters:</strong><br>This potential investment signals intense investor confidence in the rapidly growing market for AI-powered developer tools. A significant valuation for a young company like Greptile highlights the high stakes and fierce competition in this space, as VCs race to back the startups they believe will define the future of software development. Benchmark's involvement, in particular, is a strong endorsement of Greptile's potential.</p>
+        <p><strong>Key insight:</strong><br>The massive valuation for an early-stage AI tool company underscores a "winner-take-all" dynamic emerging in specialized AI sectors. The combination of huge capital injections and a competitive environment is creating immense pressure on startups to scale rapidly, making the AI developer tool space one of the most aggressive and well-funded arenas in the tech industry right now.</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-baby me-2"></i><a href="https://www.theverge.com/2025/07/20/musk-says-xai-will-make-kid-friendly-app-called-baby-grok/" style="color: #667eea; text-decoration: none;">Musk says xAI will make kid-friendly app called baby grok</a> <span class="read-time">2 min read</span></h4>
+        <p><strong>What's happening?</strong><br>Elon Musk announced on X that his company, xAI, is developing a new, separate application called "Baby Grok" aimed at providing kid-friendly content. This move comes after xAI's main chatbot, Grok, has faced criticism for generating inappropriate or unhinged responses. Musk stated the app is inspired by the Marvel character "Baby Groot" but did not provide a release timeline or specific features.</p>
+        <p><strong>Why it matters:</strong><br>This is a significant strategic move for xAI, positioning it to enter the sensitive but potentially large market for children's AI. It represents a direct challenge to other major players like Google, which has also announced plans for a child-focused version of its Gemini AI. The creation of "Baby Grok" could be an attempt to soften the public image of the Grok brand and address growing parental concerns over unfiltered AI.</p>
+        <p><strong>Key insight:</strong><br>The AI arms race is expanding beyond raw capability to include demographic-specific products. "Baby Grok" represents a major test of whether a frontier AI model known for its edgy personality can be effectively sanitized for a younger audience. This move highlights the growing importance of safety, branding, and user trust as AI becomes more integrated into daily life.</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-microchip me-2"></i><a href="https://www.marktechpost.com/2025/07/19/nvidia-ai-releases-openreasoning-nemotron-a-suite-of-reasoning-enhanced-llms-distilled-from-deepseek-r1-0528/" style="color: #667eea; text-decoration: none;">Nvidia AI releases openreasoning-nemotron: a suite of reasoning-enhanced llms distilled from deepseek r1 0528</a> <span class="read-time">6 min read</span></h4>
+        <p><strong>What's happening?</strong><br>NVIDIA AI has launched OpenReasoning-Nemotron, a new family of open-source large language models (LLMs) specifically designed for enhanced reasoning capabilities in mathematics, science, and coding. The models were created using a technique called "distillation," where the knowledge from a much larger model, DeepSeek R1, was transferred to these smaller, more efficient models.</p>
+        <p><strong>Why it matters:</strong><br>This release democratizes access to high-performance AI reasoning. By making these powerful models open-source, NVIDIA is enabling researchers and smaller companies to build sophisticated AI applications without needing the immense computational resources typically required for training such models from scratch. This move is likely to accelerate innovation in the open-source AI community.</p>
+        <p><strong>Key insight:</strong><br>The use of data distillation to create these models showcases a major trend in AI development: creating smaller, highly specialized "student" models from massive "teacher" models. This approach is proving to be an efficient way to achieve state-of-the-art performance in specific domains, suggesting that the future of AI may lie not just in building ever-larger models, but in effectively transferring their intelligence to more accessible forms.</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-globe me-2"></i><a href="https://www.theverge.com/command-line-newsletter/710313/ai-moves-chatbots-to-web-browser-chatgpt-agent-perplexity-comet" style="color: #667eea; text-decoration: none;">Why AI is moving from chatbots to the browser</a> <span class="read-time">7 min read</span></h4>
+        <p><strong>What's happening?</strong><br>A major shift is occurring in how users interact with AI, as capabilities move from standalone chatbot applications directly into the web browser itself. Companies like Perplexity with its "Comet" browser and other startups are developing browsers where AI agents can understand on-page context, perform multi-step tasks, and automate actions without requiring the user to navigate to a separate application.</p>
+        <p><strong>Why it matters:</strong><br>This trend represents the beginning of the "AI browser wars" and poses a significant threat to the dominance of traditional search engines like Google. By integrating AI agents directly into the browser, these new platforms aim to change the fundamental way users interact with the internet, moving from a model of searching and clicking to one of delegating tasks to an autonomous AI assistant.</p>
+        <p><strong>Key insight:</strong><br>The user interface is the next major battleground for AI dominance. The move to embed AI agents directly into the browser suggests that the future of AI is not just about answering questions, but about actively performing tasks on the user's behalf. This transforms the browser from a simple tool for viewing web pages into a powerful command center for a personal digital assistant.</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-search me-2"></i><a href="https://www.marktechpost.com/2025/07/19/deep-research-agents-a-systematic-roadmap-for-llm-based-autonomous-research-systems/" style="color: #667eea; text-decoration: none;">Deep research agents: a systematic roadmap for llm-based autonomous research systems</a> <span class="read-time">8 min read</span></h4>
+        <p><strong>What's happening?</strong><br>Researchers from academia and industry have published a paper outlining a systematic roadmap for developing "Deep Research Agents" (DR Agents). These are advanced AI systems based on large language models that are designed to conduct complex, long-form research autonomously by planning, iterating, and using external tools like web search to generate structured reports.</p>
+        <p><strong>Why it matters:</strong><br>This paper provides a blueprint for creating AI systems capable of performing high-level knowledge work. DR Agents represent a significant leap beyond simple information retrieval, aiming to automate entire research workflows. The development of such agents by major tech companies could revolutionize industries that rely on research and analysis, from finance to scientific discovery.</p>
+        <p><strong>Key insight:</strong><br>The focus of AI is shifting from simply finding information to understanding and synthesizing it. The concept of DR Agents illustrates a move toward building AI systems that can tackle broad research topics and deliver comprehensive, structured outputs, effectively acting as AI-powered analysts.</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-users me-2"></i><a href="https://www.marktechpost.com/2025/07/19/building-a-multi-agent-ai-research-team-with-langgraph-and-gemini-for-automated-reporting/" style="color: #667eea; text-decoration: none;">Building a multi-agent AI research team with langgraph and gemini for automated reporting</a> <span class="read-time">9 min read</span></h4>
+        <p><strong>What's happening?</strong><br>A new technical guide demonstrates how to construct a collaborative team of specialized AI agents using tools like LangGraph and Google's Gemini. The system assigns distinct roles such as "Researcher," "Analyst," and "Writer" to different AI agents, which then work together to gather data, identify insights, and autonomously generate a final report.</p>
+        <p><strong>Why it matters:</strong><br>This tutorial makes a sophisticated AI development paradigm more accessible to a broader range of developers. The concept of multi-agent systems, where different AIs collaborate to solve a problem, is believed to be key to tackling more complex tasks. This guide provides a practical example of how to orchestrate these systems, fostering wider experimentation and adoption.</p>
+        <p><strong>Key insight:</strong><br>The future of AI application development may look less like writing a single program and more like assembling a team. This approach, often referred to as a "society of minds," emphasizes the importance of orchestrating multiple specialized agents to achieve a goal, suggesting that the ability to design and manage these collaborative systems will be a critical skill.</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-robot me-2"></i><a href="https://www.marktechpost.com/2025/07/19/the-definitive-guide-to-ai-agents-architectures-frameworks-and-real-world-applications-2025/" style="color: #667eea; text-decoration: none;">The definitive guide to AI agents: architectures, frameworks, and real-world applications (2025)</a> <span class="read-time">11 min read</span></h4>
+        <p><strong>What's happening?</strong><br>A comprehensive guide has been published that details the state of AI agents in 2025. The document covers their core architectures, the software frameworks used to build them (like LangChain and CrewAI), and their practical applications in fields such as e-commerce, software development, and scientific research.</p>
+        <p><strong>Why it matters:</strong><br>AI agents are considered the next major evolution in artificial intelligence, but there is widespread confusion about their capabilities and how they work. This guide serves as a foundational resource for developers, businesses, and strategists, providing a clear and consolidated overview of the agentic AI landscape and making this complex field more accessible.</p>
+        <p><strong>Key insight:</strong><br>The emergence of such a definitive guide indicates that the field of AI agents is reaching a new level of maturity. What was once a purely experimental area is now solidifying, with established best practices, a growing ecosystem of tools, and a clearer understanding of how these autonomous systems can be effectively deployed.</p>
+      </div>
+
+      <div class="newsletter-item">
+        <h4><i class="fas fa-newspaper me-2"></i>Other AI News Worth a Look</h4>
+        <div class="other-ai-links mt-3">
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: 0.75rem;">
+              <a href="https://www.marktechpost.com/2025/07/19/maybe-physics-based-ai-is-the-right-approach-revisiting-the-foundations-of-intelligence/" style="color: #667eea; text-decoration: none; font-weight: 500;">Maybe physics-based AI is the right approach: revisiting the foundations of intelligence</a> <span style="color: var(--text-secondary); font-size: 0.85rem;">(6 mins)</span>
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+              <a href="https://utkarshkanwat.com/writing/betting-against-agents/" style="color: #667eea; text-decoration: none; font-weight: 500;">Why I'm betting against AI agents in 2025 (despite building them)</a> <span style="color: var(--text-secondary); font-size: 0.85rem;">(7 mins)</span>
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+              <a href="https://magazine.sebastianraschka.com/p/the-big-llm-architecture-comparison" style="color: #667eea; text-decoration: none; font-weight: 500;">The big LLM architecture comparison</a> <span style="color: var(--text-secondary); font-size: 0.85rem;">(15 mins)</span>
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+              <a href="https://worksonmymachine.substack.com/p/nobody-knows-how-to-build-with-ai" style="color: #667eea; text-decoration: none; font-weight: 500;">Nobody knows how to build with AI yet</a> <span style="color: var(--text-secondary); font-size: 0.85rem;">(5 mins)</span>
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+              <a href="https://3quarksdaily.com/3quarksdaily/2025/06/will-the-fear-of-being-confused-for-ai-mean-that-we-will-now-write-differently.html" style="color: #667eea; text-decoration: none; font-weight: 500;">Will the fear of being confused for AI mean that we will now write differently?</a> <span style="color: var(--text-secondary); font-size: 0.85rem;">(8 mins)</span>
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+              <a href="https://www.notcheckmark.com/2025/07/rethinking-cli-interfaces-for-ai/" style="color: #667eea; text-decoration: none; font-weight: 500;">Rethinking CLI interfaces for AI</a> <span style="color: var(--text-secondary); font-size: 0.85rem;">(6 mins)</span>
+            </li>
+            <li style="margin-bottom: 0.75rem;">
+              <a href="https://evanhahn.com/local-llms-versus-offline-wikipedia/" style="color: #667eea; text-decoration: none; font-weight: 500;">Local LLMs versus offline Wikipedia</a> <span style="color: var(--text-secondary); font-size: 0.85rem;">(4 mins)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- CTA Section -->
+  <section class="cta-section" id="subscribe">
+    <div class="container">
+      <div class="cta-card">
+        <h2 class="cta-title">Ready to Stay Ahead?</h2>
+        <p class="cta-description">
+          Join thousands of tech professionals who rely on InSight Daily for their
+          competitive edge. Start your free subscription today.
+        </p>
+        <a href="#hero" class="btn btn-primary btn-lg">
+          Get Started - Free Forever
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">InSight Daily</div>
+<!--        <div class="footer-links">-->
+<!--          <a href="#">Privacy Policy</a>-->
+<!--          <a href="#">Terms of Service</a>-->
+<!--          <a href="#">Contact</a>-->
+<!--          <a href="#">About</a>-->
+        </div>
+<!--      </div>-->
+      <div class="footer-bottom">
+        <p>&copy; 2025 InSight Daily. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+
+          // Close mobile menu after clicking
+          const navbarToggler = document.querySelector('.navbar-toggler');
+          const navbarCollapse = document.querySelector('.navbar-collapse');
+          if (navbarCollapse.classList.contains('show')) {
+            navbarToggler.click();
+          }
+        }
+      });
+    });
+
+    // Animated background particles
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        bgAnimation.appendChild(particle);
+      }
+    }
+
+    // Initialize particles when page loads
+    document.addEventListener('DOMContentLoaded', createParticles);
+  </script>
+</body>
+</html>
