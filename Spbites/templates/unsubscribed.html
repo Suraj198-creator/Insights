@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unsubscribe - InSight Daily</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+      --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-primary: #ffffff;
+      --text-secondary: #a0a0a0;
+      --accent-color: #667eea;
+      --warning-color: #f5576c;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--dark-gradient);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.3;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.3; }
+      90% { opacity: 0.3; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Navigation */
+    .navbar {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.5rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-decoration: none;
+    }
+
+    .navbar-brand:hover {
+      text-decoration: none;
+      opacity: 0.8;
+    }
+
+    /* Main content */
+    .main-content {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 0 40px;
+    }
+
+    .unsubscribe-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .unsubscribe-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 4rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .unsubscribe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .unsubscribe-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary-gradient);
+    }
+
+    .unsubscribe-icon {
+      font-size: 4rem;
+      background: var(--secondary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 2rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
+    .unsubscribe-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .unsubscribe-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+
+    /* Form styling */
+    .unsubscribe-form {
+      margin-bottom: 3rem;
+    }
+
+    .form-group {
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .form-control {
+      background: var(--card-bg) !important;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      color: var(--text-primary) !important;
+      padding: 1rem 1.5rem;
+      border-radius: 60px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      text-align: center;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: var(--text-primary) !important;
+    }
+
+    .form-control.error {
+      border-color: var(--warning-color);
+      box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
+    }
+
+    .form-control::placeholder {
+      color: var(--text-secondary) !important;
+    }
+
+    /* Error message styling */
+    .error-message {
+      color: var(--warning-color);
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .error-message.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FIXED: Auto-fill styling */
+    .form-control:-webkit-autofill,
+    .form-control:-webkit-autofill:hover,
+    .form-control:-webkit-autofill:focus,
+    .form-control:-webkit-autofill:active {
+      -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.05) inset !important;
+      -webkit-text-fill-color: var(--text-primary) !important;
+      background: rgba(255, 255, 255, 0.05) !important;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+
+    .btn-unsubscribe {
+      background: var(--secondary-gradient);
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      margin-right: 1rem;
+    }
+
+    .btn-unsubscribe:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+    }
+
+    .btn-unsubscribe:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    .btn-unsubscribe::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .btn-unsubscribe:hover:not(:disabled)::before {
+      left: 100%;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      padding: 1rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover {
+      background: var(--card-bg);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      text-decoration: none;
+    }
+
+    /* Feedback section */
+    .feedback-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 15px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .feedback-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+
+    .feedback-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* FIXED: Checkbox-style feedback options */
+    .feedback-option {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      position: relative;
+      user-select: none;
+    }
+
+    .feedback-option:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--accent-color);
+    }
+
+    .feedback-option.selected {
+      background: rgba(102, 126, 234, 0.1);
+      border-color: var(--accent-color);
+    }
+
+    .feedback-option.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      color: var(--accent-color);
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    .feedback-textarea {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      color: var(--text-primary);
+      padding: 1rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      min-height: 100px;
+      resize: vertical;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .feedback-textarea:focus {
+      outline: none;
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .feedback-textarea::placeholder {
+      color: var(--text-secondary);
+    }
+
+    /* Footer */
+    .footer {
+      padding: 2rem 0;
+      border-top: 1px solid var(--card-border);
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 600;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .unsubscribe-card {
+        padding: 3rem 1.5rem;
+      }
+
+      .unsubscribe-title {
+        font-size: 2rem;
+      }
+
+      .btn-unsubscribe, .btn-secondary {
+        display: block;
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .feedback-options {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Success state */
+    .success-card {
+      background: rgba(34, 197, 94, 0.1);
+      border-color: rgba(34, 197, 94, 0.3);
+    }
+
+    .success-icon {
+      color: #22c55e;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">InSight Daily</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="container">
+      <div class="unsubscribe-container">
+        <!-- Unsubscribe Form -->
+        <div class="unsubscribe-card" id="unsubscribeForm">
+          <div class="unsubscribe-icon">
+            <i class="fas fa-envelope-open"></i>
+          </div>
+
+          <h1 class="unsubscribe-title">We're Sorry to See You Go</h1>
+          <p class="unsubscribe-subtitle">
+            We understand that your inbox is valuable. If you'd like to unsubscribe from
+            InSight Daily, please confirm your email address below and we'll remove you
+            from our mailing list.
+          </p>
+
+          <!-- Feedback Section -->
+          <div class="feedback-section">
+            <h3 class="feedback-title">Help us improve (optional)</h3>
+            <p class="feedback-subtitle mb-3" style="color: var(--text-secondary); font-size: 0.9rem;">
+              Why are you unsubscribing? Your feedback helps us create better content. (Select all that apply)
+            </p>
+
+            <div class="feedback-options">
+              <div class="feedback-option" onclick="toggleFeedback(this, 'Too frequent')" data-reason="Too frequent">
+                <i class="fas fa-clock mb-2" style="font-size: 1.5rem; color: var(--accent-color);"></i>
+                <div>Too frequent</div>
+              </div>
+              <div class="feedback-option" onclick="toggleFeedback(this, 'Not relevant')" data-reason="Not relevant">
+                <i class="fas fa-times-circle mb-2" style="font-size: 1.5rem; color: var(--accent-color);"></i>
+                <div>Not relevant</div>
+              </div>
+              <div class="feedback-option" onclick="toggleFeedback(this, 'Poor quality')" data-reason="Poor quality">
+                <i class="fas fa-search mb-2" style="font-size: 1.5rem; color: var(--accent-color);"></i>
+                <div>Poor quality</div>
+              </div>
+              <div class="feedback-option" onclick="toggleFeedback(this, 'Content is too long to read')" data-reason="Content is too long to read">
+                <i class="fas fa-scroll mb-2" style="font-size: 1.5rem; color: var(--accent-color);"></i>
+                <div>Content is too long to read</div>
+              </div>
+            </div>
+
+            <textarea class="feedback-textarea" id="additionalFeedback" placeholder="Additional feedback (optional)..." rows="3"></textarea>
+          </div>
+
+          <!-- Unsubscribe Form -->
+          <form id="unsubscribeFormElement" method="POST" action="/unsubscribe/{{ slug }}?token={{ token }}">
+            <div class="form-group">
+              <input type="email" name="email" id="emailInput" class="form-control" required placeholder="Confirm your email address" />
+              <div class="error-message" id="emailError">
+                <i class="fas fa-exclamation-circle"></i>
+                <span>Email address doesn't match our records. Please try again.</span>
+              </div>
+            </div>
+
+            <!-- Hidden fields for feedback -->
+            <input type="hidden" name="unsubscribe_reasons" id="hiddenReasons" />
+            <input type="hidden" name="additional_feedback" id="hiddenFeedback" />
+
+            <div class="d-flex flex-column flex-md-row justify-content-center align-items-center gap-3">
+              <button type="submit" class="btn btn-unsubscribe" id="unsubscribeBtn">
+                <i class="fas fa-unlink me-2"></i>
+                Unsubscribe
+              </button>
+              <a href="/" class="btn btn-secondary">
+                <i class="fas fa-arrow-left me-2"></i>
+                Keep My Subscription
+              </a>
+            </div>
+          </form>
+
+          <small class="privacy-text" style="color: var(--text-secondary); font-size: 0.85rem;">
+            <i class="fas fa-shield-alt me-1"></i>
+            Your email will be removed from all our lists within 48 hours.
+          </small>
+        </div>
+
+        <!-- Success Message (Hidden by default) -->
+        <div class="unsubscribe-card success-card hidden" id="successMessage">
+          <div class="unsubscribe-icon success-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+
+          <h1 class="unsubscribe-title">Successfully Unsubscribed</h1>
+          <p class="unsubscribe-subtitle">
+            You have been removed from our mailing list. You will no longer receive emails from InSight Daily.
+            We're sorry to see you go!
+          </p>
+
+          <div class="mt-4">
+            <a href="/" class="btn btn-secondary">
+              <i class="fas fa-home me-2"></i>
+              Return to Homepage
+            </a>
+          </div>
+
+          <div class="mt-4 pt-4" style="border-top: 1px solid var(--card-border);">
+            <p style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem;">
+              Changed your mind? You can always resubscribe:
+            </p>
+            <a href="/" style="color: var(--accent-color); text-decoration: none; font-weight: 500;">
+              <i class="fas fa-envelope me-1"></i>
+              Resubscribe to InSight Daily
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">InSight Daily</div>
+      <p>&copy; 2025 InSight Daily. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Multiple selection support
+    let selectedReasons = [];
+
+    function toggleFeedback(option, reason) {
+      if (option.classList.contains('selected')) {
+        option.classList.remove('selected');
+        selectedReasons = selectedReasons.filter(r => r !== reason);
+      } else {
+        option.classList.add('selected');
+        if (!selectedReasons.includes(reason)) {
+          selectedReasons.push(reason);
+        }
+      }
+    }
+
+    // Show error message
+    function showEmailError() {
+      const emailInput = document.getElementById('emailInput');
+      const errorMessage = document.getElementById('emailError');
+
+      emailInput.classList.add('error');
+      errorMessage.classList.add('show');
+
+      // Remove error styling when user starts typing again
+      emailInput.addEventListener('input', function() {
+        emailInput.classList.remove('error');
+        errorMessage.classList.remove('show');
+      }, { once: true });
+    }
+
+    // Show success message
+    function showSuccessMessage() {
+      document.getElementById('unsubscribeForm').classList.add('hidden');
+      document.getElementById('successMessage').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Handle form submission with AJAX
+    document.getElementById('unsubscribeFormElement').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const form = this;
+      const submitBtn = document.getElementById('unsubscribeBtn');
+      const originalBtnContent = submitBtn.innerHTML;
+
+      // Set loading state
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+      submitBtn.disabled = true;
+
+      // Prepare form data
+      document.getElementById('hiddenReasons').value = JSON.stringify(selectedReasons);
+      document.getElementById('hiddenFeedback').value = document.getElementById('additionalFeedback').value;
+
+      // Create FormData object
+      const formData = new FormData(form);
+
+      // Submit form via AJAX
+      fetch(form.action, {
+        method: 'POST',
+        body: formData
+      })
+      .then(response => {
+        if (response.ok) {
+          // Check if response is HTML (success) or has error status
+          return response.text().then(text => {
+            if (text.includes('Successfully Unsubscribed') || text.includes('unsubscribed')) {
+              // Success - show success message
+              setTimeout(() => {
+                showSuccessMessage();
+              }, 1000);
+            } else if (text.includes("Email confirmation doesn't match") || text.includes('403')) {
+              // Email mismatch error
+              throw new Error('EMAIL_MISMATCH');
+            } else {
+              // Other error
+              throw new Error('UNKNOWN_ERROR');
+            }
+          });
+        } else if (response.status === 403) {
+          throw new Error('EMAIL_MISMATCH');
+        } else {
+          throw new Error('SERVER_ERROR');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+
+        // Reset button state
+        submitBtn.innerHTML = originalBtnContent;
+        submitBtn.disabled = false;
+
+        if (error.message === 'EMAIL_MISMATCH') {
+          showEmailError();
+        } else {
+          // Handle other errors - could show a general error message
+          alert('An error occurred. Please try again.');
+        }
+      });
+    });
+
+    // Animated background particles
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        bgAnimation.appendChild(particle);
+      }
+    }
+
+    // Initialize particles when page loads
+    document.addEventListener('DOMContentLoaded', createParticles);
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
