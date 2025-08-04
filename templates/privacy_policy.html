@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - Sparrow</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --primary-gradient: linear-gradient(135deg, #c19b5a 0%, #8b6914 100%);
+      --secondary-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+      --dark-gradient: linear-gradient(135deg, #0f0e0d 0%, #1a1716 100%);
+      --card-bg: rgba(193, 155, 90, 0.08);
+      --card-border: rgba(193, 155, 90, 0.15);
+      --text-primary: #f5f1eb;
+      --text-secondary: #b8a082;
+      --accent-color: #c19b5a;
+      --deep-brown: #2c1810;
+      --warm-beige: #f5f1eb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--dark-gradient);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.7;
+      box-shadow: 0 0 4px rgba(193, 155, 90, 0.5);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Navigation */
+    .navbar {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.75rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .navbar-brand:hover {
+      text-decoration: none;
+      opacity: 0.8;
+    }
+
+    .navbar-logo {
+      height: 70px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+      position: relative;
+      top: -5px;
+    }
+
+    .navbar-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      list-style: none;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-secondary);
+      padding: 0.5rem 1.25rem;
+      border-radius: 25px;
+      font-weight: 500;
+      margin-left: 0.75rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 0.95rem;
+    }
+
+    .nav-btn:hover {
+      background: var(--card-bg);
+      color: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(193, 155, 90, 0.2);
+      text-decoration: none;
+    }
+
+    .nav-btn:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(193, 155, 90, 0.3);
+    }
+
+    /* Mobile navigation */
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.5rem;
+      background: transparent;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+    }
+
+    .navbar-toggler:hover {
+      background: var(--card-bg);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(193, 155, 90, 0.3);
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245, 241, 235, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-btn {
+        margin: 0.25rem 0;
+        margin-left: 0;
+        display: block;
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    /* Privacy Policy Content */
+    .privacy-section {
+      padding: 6rem 0 4rem;
+      min-height: 100vh;
+    }
+
+    .privacy-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .privacy-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      padding-top: 2rem;
+    }
+
+    .privacy-title {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--warm-beige) 0%, var(--text-secondary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .privacy-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+
+    .effective-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 25px;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+    }
+
+    .privacy-content {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .privacy-intro {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      color: var(--text-secondary);
+      padding: 1.5rem;
+      background: rgba(193, 155, 90, 0.05);
+      border-left: 4px solid var(--accent-color);
+      border-radius: 8px;
+    }
+
+    .privacy-section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin: 2.5rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .privacy-section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: var(--primary-gradient);
+      border-radius: 2px;
+    }
+
+    .privacy-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .privacy-list {
+      margin: 1rem 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .privacy-list li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .privacy-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-color);
+      border-radius: 50%;
+    }
+
+    .privacy-list li strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .contact-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--primary-gradient);
+    }
+
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--primary-gradient);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+    }
+
+    .contact-icon i {
+      font-size: 1.5rem;
+      color: var(--warm-beige);
+    }
+
+    .contact-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .contact-text {
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .contact-email {
+      display: inline-block;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent-color);
+      border-radius: 25px;
+      transition: all 0.3s ease;
+    }
+
+    .contact-email:hover {
+      background: var(--accent-color);
+      color: var(--warm-beige);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 4rem 0 2rem;
+      border-top: 1px solid var(--card-border);
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .footer-logo-container {
+      width: 32px;
+      height: 32px;
+      background: var(--primary-gradient);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+    }
+
+    .footer-logo-svg {
+      width: 40px;
+      height: auto;
+      fill: var(--warm-beige);
+    }
+
+    .footer-logo-text {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    /* Footer Links Section - positioned above copyright */
+    .footer-links-section {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .footer-links-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-small-logo {
+      height: 24px;
+      width: auto;
+      object-fit: contain;
+      opacity: 0.8;
+      transition: opacity 0.3s ease;
+    }
+
+    .footer-small-logo:hover {
+      opacity: 1;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-color);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      color: var(--text-secondary);
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links-container {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .privacy-title {
+        font-size: 2.5rem;
+      }
+
+      .privacy-content {
+        padding: 2rem 1.5rem;
+      }
+
+      .privacy-container {
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Background Animation -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
+  <!-- Navigation -->
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="{{ url_for('index')}}">
+        <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
+      </a>
+      <div class="ms-auto">
+        <a class="nav-btn" href="{{ url_for('index') }}">Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Privacy Policy Section -->
+  <section class="privacy-section">
+    <div class="privacy-container">
+
+      <!-- Header -->
+      <div class="privacy-header">
+        <h1 class="privacy-title">Privacy Policy</h1>
+        <p class="privacy-subtitle">Your privacy is important to us</p>
+        <div class="effective-date">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Effective Date: August 02, 2025</span>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="privacy-content">
+
+        <!-- Introduction -->
+        <div class="privacy-intro">
+          At Sparrow ("we," "us," or "our"), your privacy is important to us. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website and subscribe to our newsletter service. Please read this policy carefully to understand our views and practices regarding your personal data.
+        </div>
+
+        <!-- 1. Information We Collect -->
+        <h2 class="privacy-section-title">1. Information We Collect</h2>
+        <p class="privacy-text">We collect the following types of information:</p>
+        <ul class="privacy-list">
+          <li><strong>Personal Information:</strong> Such as your name and email address that you voluntarily provide when subscribing to our newsletter or contacting us.</li>
+          <li><strong>Communication Data:</strong> Information you provide when you contact us through our contact forms or email, including your message content and any details you choose to share.</li>
+        </ul>
+
+        <!-- 2. How We Use Your Information -->
+        <h2 class="privacy-section-title">2. How We Use Your Information</h2>
+        <p class="privacy-text">We use your information to:</p>
+        <ul class="privacy-list">
+          <li>Send newsletters, updates, and technology insights (with your consent)</li>
+          <li>Respond to inquiries and provide customer support</li>
+          <li>Improve our newsletter content and service quality</li>
+          <li>Comply with legal obligations</li>
+          <li>Prevent fraud and ensure the security of our services</li>
+        </ul>
+
+        <!-- 3. Legal Basis for Processing -->
+        <h2 class="privacy-section-title">3. Legal Basis for Processing</h2>
+        <p class="privacy-text">We process your personal data based on:</p>
+        <ul class="privacy-list">
+          <li><strong>Consent:</strong> When you subscribe to our newsletter or contact us voluntarily</li>
+          <li><strong>Legitimate Interest:</strong> To respond to your inquiries and improve our services</li>
+          <li><strong>Legal Obligation:</strong> When required to comply with applicable laws</li>
+        </ul>
+
+        <!-- 4. Sharing Your Information -->
+        <h2 class="privacy-section-title">4. Sharing Your Information</h2>
+        <p class="privacy-text">We do not sell, trade, or rent your personal information to others. We may share information only in the following limited circumstances:</p>
+        <ul class="privacy-list">
+          <li>With trusted service providers who help us operate our newsletter service, subject to confidentiality obligations</li>
+          <li>When required by law or to protect our rights and safety</li>
+          <li>In connection with a business transfer or merger (with prior notice to you)</li>
+        </ul>
+
+        <!-- 5. Data Retention -->
+        <h2 class="privacy-section-title">5. Data Retention</h2>
+        <p class="privacy-text">We retain your personal information only for as long as necessary to fulfill the purposes outlined in this policy. Specifically:</p>
+        <ul class="privacy-list">
+          <li>Newsletter subscription data: Until you unsubscribe or request deletion</li>
+          <li>Contact form submissions: For up to 2 years to maintain customer service records</li>
+          <li>Legal compliance data: As required by applicable laws</li>
+        </ul>
+
+        <!-- 6. Data Security -->
+        <h2 class="privacy-section-title">6. Data Security</h2>
+        <p class="privacy-text">We implement appropriate technical and organizational security measures to protect your personal data against unauthorized access, alteration, disclosure, or destruction. However, no method of transmission over the internet or electronic storage is 100% secure.</p>
+
+        <!-- 7. Your Rights -->
+        <h2 class="privacy-section-title">7. Your Rights</h2>
+        <p class="privacy-text">Depending on your location, you may have the following rights regarding your personal information:</p>
+        <ul class="privacy-list">
+          <li><strong>Access:</strong> Request a copy of the personal data we hold about you</li>
+          <li><strong>Correction:</strong> Request correction of inaccurate or incomplete information</li>
+          <li><strong>Deletion:</strong> Request deletion of your personal data</li>
+          <li><strong>Portability:</strong> Request transfer of your data to another service</li>
+          <li><strong>Withdrawal of Consent:</strong> Unsubscribe from our newsletter at any time</li>
+          <li><strong>Object:</strong> Object to certain types of processing</li>
+        </ul>
+        <p class="privacy-text">To exercise these rights, please contact us using the information provided below.</p>
+
+        <!-- 8. Third-Party Links -->
+        <h2 class="privacy-section-title">8. Third-Party Links</h2>
+        <p class="privacy-text">Our newsletter may contain links to third-party websites for your convenience and information. We are not responsible for the privacy practices of those sites and encourage you to review their privacy policies.</p>
+
+        <!-- 9. Children's Privacy -->
+        <h2 class="privacy-section-title">9. Children's Privacy</h2>
+        <p class="privacy-text">Our service is not intended for individuals under 16 years of age. We do not knowingly collect personal information from children under 16. If we become aware that we have collected such information, we will take steps to delete it promptly.</p>
+
+        <!-- 10. International Data Transfers -->
+        <h2 class="privacy-section-title">10. International Data Transfers</h2>
+        <p class="privacy-text">If you are located outside our primary operating jurisdiction, please note that your information may be transferred to and processed in countries with different data protection laws. We ensure appropriate safeguards are in place for such transfers.</p>
+
+        <!-- 11. Changes to This Privacy Policy -->
+        <h2 class="privacy-section-title">11. Changes to This Privacy Policy</h2>
+        <p class="privacy-text">We may update this Privacy Policy from time to time to reflect changes in our practices or applicable laws. We will notify you of any material changes by email or through a prominent notice on our website. Your continued use of our service after such modifications constitutes acceptance of the updated policy.</p>
+
+        <!-- 12. Contact Us -->
+        <h2 class="privacy-section-title">12. Contact Us</h2>
+        <p class="privacy-text">If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us using the information below.</p>
+
+      </div>
+
+      <!-- Contact Card -->
+      <div class="contact-card">
+        <div class="contact-icon">
+          <i class="fas fa-envelope"></i>
+        </div>
+        <h3 class="contact-title">Questions About Privacy?</h3>
+        <p class="contact-text">We're here to help. Reach out to us with any privacy-related questions or concerns.</p>
+        <a href="mailto:privacy@sparrownews.com" class="contact-email">privacy@sparrownews.com</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
+        </div>
+      </div>
+
+      <!-- Footer Links Section -->
+      <div class="footer-links-section">
+        <div class="footer-links-container">
+          <div class="footer-links">
+              <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+              <a href="{{ url_for('terms') }}">Terms of Service</a>
+              <a href="{{ url_for('contact') }}">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Sparrow. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Animated background particles
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = 30;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        bgAnimation.appendChild(particle);
+      }
+    }
+
+    // Initialize particles when page loads
+    document.addEventListener('DOMContentLoaded', createParticles);
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
