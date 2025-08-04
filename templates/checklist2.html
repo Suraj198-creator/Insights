@@ -377,18 +377,44 @@
     // Handle newsletter selection - improved mobile support
     boxes.forEach(box => {
       let touchStarted = false;
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchStartTime = 0;
       
       // Handle touch events for mobile
       box.addEventListener('touchstart', (e) => {
         touchStarted = true;
-        e.preventDefault(); // Prevent scrolling when touching the box
-      }, { passive: false });
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        touchStartTime = Date.now();
+        // Don't prevent default - allow scrolling
+      }, { passive: true });
+
+      box.addEventListener('touchmove', (e) => {
+        if (touchStarted) {
+          const touchMoveX = e.touches[0].clientX;
+          const touchMoveY = e.touches[0].clientY;
+          const deltaX = Math.abs(touchMoveX - touchStartX);
+          const deltaY = Math.abs(touchMoveY - touchStartY);
+          
+          // If user has moved more than 10px, consider it scrolling
+          if (deltaX > 10 || deltaY > 10) {
+            touchStarted = false; // Cancel the touch interaction
+          }
+        }
+      }, { passive: true });
 
       box.addEventListener('touchend', (e) => {
         if (touchStarted) {
-          e.preventDefault();
-          e.stopPropagation();
-          toggleSelection(box);
+          const touchEndTime = Date.now();
+          const touchDuration = touchEndTime - touchStartTime;
+          
+          // Only trigger if it was a quick tap (less than 500ms) and no significant movement
+          if (touchDuration < 500) {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleSelection(box);
+          }
           touchStarted = false;
         }
       }, { passive: false });
