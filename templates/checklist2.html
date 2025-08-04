@@ -39,6 +39,11 @@
       position: relative;
       overflow-x: hidden;
       line-height: 1.6;
+      /* Prevent text selection on mobile */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     /* Animated background particles */
@@ -135,6 +140,14 @@
       gap: 8px;
       /* Add margin to prevent layout shift */
       margin: 8px 0;
+      /* Improve touch target for mobile */
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
 
     .newsletter-box::before {
@@ -174,6 +187,7 @@
       font-size: 2rem;
       margin-bottom: 8px;
       display: block;
+      pointer-events: none;
     }
 
     .newsletter-box .title {
@@ -181,6 +195,7 @@
       font-weight: 600;
       position: relative;
       z-index: 1;
+      pointer-events: none;
     }
 
     /* Fixed button container to prevent movement */
@@ -207,6 +222,7 @@
       overflow: hidden;
       font-family: 'Inter', sans-serif;
       min-width: 200px;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .next-btn::before {
@@ -345,23 +361,72 @@
       }
     }
 
-    // Handle newsletter selection
+    // Toggle selection state
+    function toggleSelection(box) {
+      const id = box.getAttribute('data-id');
+      if (selected.has(id)) {
+        selected.delete(id);
+        box.classList.remove('selected');
+      } else {
+        selected.add(id);
+        box.classList.add('selected');
+      }
+      updateSelectionCount();
+    }
+
+    // Handle newsletter selection - improved mobile support
     boxes.forEach(box => {
-      box.addEventListener('click', () => {
-        const id = box.getAttribute('data-id');
-        if (selected.has(id)) {
-          selected.delete(id);
-          box.classList.remove('selected');
-        } else {
-          selected.add(id);
-          box.classList.add('selected');
+      let touchStarted = false;
+      
+      // Handle touch events for mobile
+      box.addEventListener('touchstart', (e) => {
+        touchStarted = true;
+        e.preventDefault(); // Prevent scrolling when touching the box
+      }, { passive: false });
+
+      box.addEventListener('touchend', (e) => {
+        if (touchStarted) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleSelection(box);
+          touchStarted = false;
         }
-        updateSelectionCount();
+      }, { passive: false });
+
+      box.addEventListener('touchcancel', () => {
+        touchStarted = false;
+      });
+
+      // Handle click events for desktop
+      box.addEventListener('click', (e) => {
+        // Only handle click if it wasn't preceded by a touch event
+        if (!touchStarted) {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleSelection(box);
+        }
+      });
+
+      // Prevent context menu on long press
+      box.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
       });
     });
 
+    // Prevent clicks on the container from affecting selections
+    document.addEventListener('click', (e) => {
+      // Only handle clicks that bubble up from outside the newsletter boxes
+      if (!e.target.closest('.newsletter-box') && !e.target.closest('.next-btn')) {
+        // This prevents any unwanted deselection when clicking outside
+        e.stopPropagation();
+      }
+    });
+
     // Handle next button click
-    nextBtn.addEventListener('click', () => {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      
       const selectedArray = Array.from(selected);
 
       if (selectedArray.length === 0) {
