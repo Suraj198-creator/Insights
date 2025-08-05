@@ -447,8 +447,8 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="/">
-        <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
+      <a class="navbar-brand" href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='images/sparrow_logo.png') }}" alt="Sparrow Logo" class="navbar-logo">
       </a>
     </div>
   </nav>
@@ -526,7 +526,7 @@
           </form>
 
           <small class="privacy-text" style="color: var(--text-secondary); font-size: 0.85rem;">
-            <i class="fas fa-shield-alt me-1"></i>
+            <i class="fas fa-shield-alt me-1 mt-4"></i>
             Your email will be removed from all our lists within 48 hours.
           </small>
         </div>
@@ -567,7 +567,9 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="footer-logo">
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='images/sparrow_logo.png') }}" alt="Sparrow Logo" class="footer-logo">
+      </a>
       <p>&copy; 2025 Sparrow. All rights reserved.</p>
     </div>
   </footer>
