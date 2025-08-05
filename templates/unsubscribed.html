@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Unsubscribe - InSight Daily</title>
+  <title>Unsubscribe - Sparrow</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     :root {
-      --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-      --dark-gradient: linear-gradient(135deg, #0c0c0c 0%, #1a1a1a 100%);
-      --card-bg: rgba(255, 255, 255, 0.05);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --text-primary: #ffffff;
-      --text-secondary: #a0a0a0;
-      --accent-color: #667eea;
-      --warning-color: #f5576c;
+      --primary-gradient: linear-gradient(135deg, #c19b5a 0%, #8b6914 100%);
+      --secondary-gradient: linear-gradient(135deg, #d4af37 0%, #b8860b 100%);
+      --dark-gradient: linear-gradient(135deg, #0f0e0d 0%, #1a1716 100%);
+      --card-bg: rgba(193, 155, 90, 0.08);
+      --card-border: rgba(193, 155, 90, 0.15);
+      --text-primary: #f5f1eb;
+      --text-secondary: #b8a082;
+      --accent-color: #c19b5a;
+      --warning-color: #dc3545;
+      --deep-brown: #2c1810;
+      --warm-beige: #f5f1eb;
     }
 
     * {
@@ -49,18 +51,19 @@
 
     .particle {
       position: absolute;
-      width: 2px;
-      height: 2px;
+      width: 3px;
+      height: 3px;
       background: var(--accent-color);
       border-radius: 50%;
       animation: float 20s infinite linear;
-      opacity: 0.3;
+      opacity: 0.7;
+      box-shadow: 0 0 4px rgba(193, 155, 90, 0.5);
     }
 
     @keyframes float {
       0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-      10% { opacity: 0.3; }
-      90% { opacity: 0.3; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
       100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 
@@ -69,7 +72,7 @@
       background: var(--card-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--card-border);
-      padding: 0.5rem 0;
+      padding: 0.75rem 0;
       position: fixed;
       top: 0;
       left: 0;
@@ -79,18 +82,21 @@
     }
 
     .navbar-brand {
-      font-size: 1.5rem;
-      font-weight: 700;
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
       text-decoration: none;
     }
 
     .navbar-brand:hover {
       text-decoration: none;
       opacity: 0.8;
+    }
+
+    .navbar-logo {
+      height: 40px;
+      width: auto;
+      max-width: 200px;
+      object-fit: contain;
+      position: relative;
+      top: -2px;
     }
 
     /* Main content */
@@ -122,7 +128,7 @@
 
     .unsubscribe-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 40px rgba(193, 155, 90, 0.2);
     }
 
     .unsubscribe-card::before {
@@ -154,7 +160,7 @@
       font-size: 2.5rem;
       font-weight: 700;
       margin-bottom: 1.5rem;
-      background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
+      background: linear-gradient(135deg, var(--warm-beige) 0%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -193,14 +199,14 @@
     .form-control:focus {
       outline: none;
       border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-      background: rgba(255, 255, 255, 0.08) !important;
+      box-shadow: 0 0 0 3px rgba(193, 155, 90, 0.1);
+      background: rgba(193, 155, 90, 0.12) !important;
       color: var(--text-primary) !important;
     }
 
     .form-control.error {
       border-color: var(--warning-color);
-      box-shadow: 0 0 0 3px rgba(245, 87, 108, 0.1);
+      box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
     }
 
     .form-control::placeholder {
@@ -227,14 +233,14 @@
       transform: translateY(0);
     }
 
-    /* FIXED: Auto-fill styling */
+    /* Enhanced autofill styling */
     .form-control:-webkit-autofill,
     .form-control:-webkit-autofill:hover,
     .form-control:-webkit-autofill:focus,
     .form-control:-webkit-autofill:active {
-      -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.05) inset !important;
+      -webkit-box-shadow: 0 0 0 30px var(--card-bg) inset !important;
       -webkit-text-fill-color: var(--text-primary) !important;
-      background: rgba(255, 255, 255, 0.05) !important;
+      background: var(--card-bg) !important;
       transition: background-color 5000s ease-in-out 0s;
     }
 
@@ -249,11 +255,13 @@
       position: relative;
       overflow: hidden;
       margin-right: 1rem;
+      color: var(--deep-brown);
     }
 
     .btn-unsubscribe:hover:not(:disabled) {
       transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+      color: var(--deep-brown);
     }
 
     .btn-unsubscribe:disabled {
@@ -294,7 +302,7 @@
       color: var(--accent-color);
       border-color: var(--accent-color);
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+      box-shadow: 0 5px 15px rgba(193, 155, 90, 0.2);
       text-decoration: none;
     }
 
@@ -322,9 +330,8 @@
       margin-bottom: 1.5rem;
     }
 
-    /* FIXED: Checkbox-style feedback options */
     .feedback-option {
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(193, 155, 90, 0.05);
       border: 1px solid var(--card-border);
       border-radius: 10px;
       padding: 1rem;
@@ -336,12 +343,12 @@
     }
 
     .feedback-option:hover {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(193, 155, 90, 0.1);
       border-color: var(--accent-color);
     }
 
     .feedback-option.selected {
-      background: rgba(102, 126, 234, 0.1);
+      background: rgba(193, 155, 90, 0.15);
       border-color: var(--accent-color);
     }
 
@@ -373,8 +380,8 @@
     .feedback-textarea:focus {
       outline: none;
       border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 3px rgba(193, 155, 90, 0.1);
+      background: rgba(193, 155, 90, 0.12);
     }
 
     .feedback-textarea::placeholder {
@@ -392,12 +399,8 @@
     }
 
     .footer-logo {
-      font-size: 1.2rem;
-      font-weight: 600;
-      background: var(--primary-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      height: 32px;
+      width: auto;
       margin-bottom: 0.5rem;
     }
 
@@ -444,7 +447,9 @@
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="/">InSight Daily</a>
+      <a class="navbar-brand" href="/">
+        <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
+      </a>
     </div>
   </nav>
 
@@ -461,7 +466,7 @@
           <h1 class="unsubscribe-title">We're Sorry to See You Go</h1>
           <p class="unsubscribe-subtitle">
             We understand that your inbox is valuable. If you'd like to unsubscribe from
-            InSight Daily, please confirm your email address below and we'll remove you
+            Sparrow, please confirm your email address below and we'll remove you
             from our mailing list.
           </p>
 
@@ -534,7 +539,7 @@
 
           <h1 class="unsubscribe-title">Successfully Unsubscribed</h1>
           <p class="unsubscribe-subtitle">
-            You have been removed from our mailing list. You will no longer receive emails from InSight Daily.
+            You have been removed from our mailing list. You will no longer receive emails from Sparrow.
             We're sorry to see you go!
           </p>
 
@@ -551,7 +556,7 @@
             </p>
             <a href="/" style="color: var(--accent-color); text-decoration: none; font-weight: 500;">
               <i class="fas fa-envelope me-1"></i>
-              Resubscribe to Sparrow Insights
+              Resubscribe to Sparrow
             </a>
           </div>
         </div>
@@ -562,8 +567,8 @@
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-logo">InSight Daily</div>
-      <p>&copy; 2025 InSight Daily. All rights reserved.</p>
+      <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="footer-logo">
+      <p>&copy; 2025 Sparrow. All rights reserved.</p>
     </div>
   </footer>
 
@@ -672,14 +677,14 @@
     // Animated background particles
     function createParticles() {
       const bgAnimation = document.getElementById('bgAnimation');
-      const particleCount = 30;
+      const particleCount = 50;
 
       for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
         particle.className = 'particle';
         particle.style.left = Math.random() * 100 + '%';
         particle.style.animationDelay = Math.random() * 20 + 's';
-        particle.style.animationDuration = (Math.random() * 10 + 15) + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
         bgAnimation.appendChild(particle);
       }
     }
