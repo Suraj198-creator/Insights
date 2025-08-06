@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us - Sparrow</title>
+  <title>Terms of Service - Sparrow</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
   <style>
@@ -36,12 +36,47 @@
       overflow-x: hidden;
     }
 
-    /* Navigation */
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.7;
+      box-shadow: 0 0 4px rgba(193, 155, 90, 0.5);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Navigation - Consistent with index.html */
     .navbar {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--card-border);
       padding: 0.75rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
     }
 
     .navbar-brand {
@@ -49,6 +84,13 @@
       align-items: center;
       gap: 0.75rem;
       text-decoration: none;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .navbar-brand:hover {
+      text-decoration: none;
+      opacity: 0.8;
     }
 
     .navbar-logo {
@@ -56,42 +98,119 @@
       width: auto;
       max-width: 200px;
       object-fit: contain;
+      position: relative;
+      top: -2px;
     }
 
-    .nav-btn {
-      background: transparent;
-      border: 1px solid var(--card-border);
+    /* Remove default list styling */
+    .navbar-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      list-style: none;
+    }
+
+    /* Professional text-only navigation links */
+    .nav-link {
       color: var(--text-secondary);
-      padding: 0.5rem 1.25rem;
-      border-radius: 25px;
+      text-decoration: none;
       font-weight: 500;
-      margin-left: 0.75rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
       font-size: 0.95rem;
+      margin-left: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .nav-btn:hover {
-      background: var(--card-bg);
+    .nav-link:hover {
       color: var(--accent-color);
-      border-color: var(--accent-color);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(193, 155, 90, 0.2);
       text-decoration: none;
     }
 
-    /* Content Styling */
-    .content-section {
-      padding: 6rem 0 4rem;
-      min-height: 80vh;
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
     }
 
-    .page-title {
-      font-size: 2.5rem;
-      font-weight: 700;
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu styling */
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.5rem;
+      background: transparent;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+    }
+
+    .navbar-toggler:hover {
+      background: var(--card-bg);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(193, 155, 90, 0.3);
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245, 241, 235, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    /* Mobile navigation */
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-link {
+        margin: 0.5rem 0;
+        margin-left: 0;
+        display: block;
+      }
+    }
+
+    /* Terms Content */
+    .terms-section {
+      padding: 6rem 0 4rem;
+      min-height: 100vh;
+      padding-top: 120px; /* Account for fixed navbar */
+    }
+
+    .terms-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .terms-header {
       text-align: center;
+      margin-bottom: 4rem;
+      padding-top: 2rem;
+    }
+
+    .terms-title {
+      font-size: 3rem;
+      font-weight: 700;
       margin-bottom: 1rem;
       background: linear-gradient(135deg, var(--warm-beige) 0%, var(--text-secondary) 100%);
       -webkit-background-clip: text;
@@ -99,21 +218,111 @@
       background-clip: text;
     }
 
-    .page-subtitle {
-      text-align: center;
+    .terms-subtitle {
       color: var(--text-secondary);
       font-size: 1.1rem;
-      margin-bottom: 4rem;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+      margin-bottom: 2rem;
     }
 
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      margin-bottom: 4rem;
+    .effective-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 25px;
+      font-size: 0.9rem;
+      color: var(--accent-color);
+    }
+
+    .terms-content {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .terms-intro {
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+      color: var(--text-secondary);
+      padding: 1.5rem;
+      background: rgba(193, 155, 90, 0.05);
+      border-left: 4px solid var(--accent-color);
+      border-radius: 8px;
+    }
+
+    .terms-section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      margin: 2.5rem 0 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .terms-section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: var(--primary-gradient);
+      border-radius: 2px;
+    }
+
+    .terms-text {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .terms-list {
+      margin: 1rem 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .terms-list li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .terms-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.6rem;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-color);
+      border-radius: 50%;
+    }
+
+    .terms-list li strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .highlight-box {
+      background: rgba(193, 155, 90, 0.08);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box h4 {
+      color: var(--accent-color);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
     }
 
     .contact-card {
@@ -121,9 +330,9 @@
       backdrop-filter: blur(10px);
       border: 1px solid var(--card-border);
       border-radius: 20px;
-      padding: 3rem 2rem;
+      padding: 2rem;
       text-align: center;
-      transition: all 0.3s ease;
+      margin-top: 3rem;
       position: relative;
       overflow: hidden;
     }
@@ -134,239 +343,53 @@
       top: 0;
       left: 0;
       width: 100%;
-      height: 100%;
+      height: 4px;
       background: var(--primary-gradient);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .contact-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(193, 155, 90, 0.2);
-    }
-
-    .contact-card:hover::before {
-      opacity: 0.05;
     }
 
     .contact-icon {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto 1.5rem;
+      width: 60px;
+      height: 60px;
       background: var(--primary-gradient);
-      border-radius: 16px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      z-index: 1;
+      margin: 0 auto 1rem;
     }
 
     .contact-icon i {
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: var(--warm-beige);
     }
 
     .contact-title {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 600;
-      margin-bottom: 1rem;
+      margin-bottom: 0.5rem;
       color: var(--text-primary);
-      position: relative;
-      z-index: 1;
     }
 
-    .contact-description {
+    .contact-text {
       color: var(--text-secondary);
-      margin-bottom: 2rem;
-      position: relative;
-      z-index: 1;
+      margin-bottom: 1rem;
     }
 
-    .contact-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
+    .contact-email {
+      display: inline-block;
       color: var(--accent-color);
       text-decoration: none;
       font-weight: 500;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent-color);
+      border-radius: 25px;
       transition: all 0.3s ease;
-      position: relative;
-      z-index: 1;
     }
 
-    .contact-link:hover {
+    .contact-email:hover {
+      background: var(--accent-color);
       color: var(--warm-beige);
-      transform: translateY(-2px);
-    }
-
-    /* Contact Form */
-    .contact-form-section {
-      max-width: 800px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 3rem;
-    }
-
-    .form-title {
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .form-subtitle {
-      text-align: center;
-      color: var(--text-secondary);
-      margin-bottom: 3rem;
-    }
-
-    .form-group {
-      margin-bottom: 2rem;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .form-control {
-      background: rgba(193, 155, 90, 0.1) !important;
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-      color: var(--text-primary) !important;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(193, 155, 90, 0.1);
-      background: rgba(193, 155, 90, 0.15) !important;
-      color: var(--text-primary) !important;
-    }
-
-    .form-control::placeholder {
-      color: var(--text-secondary);
-    }
-
-    textarea.form-control {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .btn-primary {
-      background: var(--primary-gradient);
-      border: none;
-      padding: 1rem 2.5rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      color: var(--warm-beige);
-      width: 100%;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(193, 155, 90, 0.4);
-      color: var(--warm-beige);
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(245,241,235,0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn-primary:hover::before {
-      left: 100%;
-    }
-
-    /* FAQ Section */
-    .faq-section {
-      margin-top: 4rem;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .faq-title {
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 2rem;
-      color: var(--text-primary);
-    }
-
-    .faq-item {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: 12px;
-      margin-bottom: 1rem;
-      overflow: hidden;
-    }
-
-    .faq-question {
-      padding: 1.5rem;
-      background: transparent;
-      border: none;
-      color: var(--text-primary);
-      font-weight: 500;
-      font-size: 1.1rem;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      transition: all 0.3s ease;
-    }
-
-    .faq-question:hover {
-      color: var(--accent-color);
-    }
-
-    .faq-question i {
-      transition: transform 0.3s ease;
-    }
-
-    .faq-question.active i {
-      transform: rotate(180deg);
-    }
-
-    .faq-answer {
-      padding: 0 1.5rem;
-      max-height: 0;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .faq-answer.active {
-      padding: 0 1.5rem 1.5rem;
-      max-height: 200px;
-    }
-
-    .faq-answer p {
-      color: var(--text-secondary);
-      margin: 0;
+      text-decoration: none;
     }
 
     /* Footer */
@@ -379,10 +402,8 @@
 
     .footer-content {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      gap: 2rem;
       margin-bottom: 2rem;
     }
 
@@ -392,8 +413,24 @@
       gap: 0.75rem;
     }
 
+    .footer-links-section {
+      text-align: center;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .footer-links-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
     .footer-links {
       display: flex;
+      justify-content: center;
       gap: 2rem;
       flex-wrap: wrap;
     }
@@ -402,6 +439,7 @@
       color: var(--text-secondary);
       text-decoration: none;
       transition: color 0.3s ease;
+      font-size: 0.95rem;
     }
 
     .footer-links a:hover {
@@ -410,221 +448,305 @@
 
     .footer-bottom {
       text-align: center;
-      padding-top: 2rem;
-      border-top: 1px solid var(--card-border);
       color: var(--text-secondary);
+      margin: 0;
+      padding: 0;
     }
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      .contact-form-section {
-        padding: 2rem;
-        margin: 0 1rem;
-      }
-
-      .page-title {
-        font-size: 2rem;
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
       .footer-content {
         flex-direction: column;
         text-align: center;
+      }
+
+      .footer-links-container {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .terms-title {
+        font-size: 2.5rem;
+      }
+
+      .terms-content {
+        padding: 2rem 1.5rem;
+      }
+
+      .terms-container {
+        padding: 0 1rem;
       }
     }
   </style>
 </head>
 <body>
+  <!-- Background Animation -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="{{ url_for('index')}}">
+      <a class="navbar-brand" href="{{ url_for('index') }}">
         <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
       </a>
-      <div class="ms-auto">
-        <a class="nav-btn" href="{{ url_for('index') }}">Back to Home</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#hero">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#sample">Sample</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Content Section -->
-  <section class="content-section">
-    <div class="container">
-      <h1 class="page-title">Get in Touch</h1>
-      <p class="page-subtitle">
-        Have questions, feedback, or suggestions? We'd love to hear from you.
-        Choose the best way to reach our team below.
-      </p>
 
-      <!-- Contact Options -->
-      <div class="contact-grid">
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-envelope"></i>
-          </div>
-          <h3 class="contact-title">General Inquiries</h3>
-          <p class="contact-description">
-            Questions about subscriptions, content, or general support
-          </p>
-          <a href="mailto:hello@sparrownews.com" class="contact-link">
-            <i class="fas fa-paper-plane"></i>
-            hello@sparrownews.com
-          </a>
-        </div>
+  <!-- Terms of Service Section -->
+  <section class="terms-section">
+    <div class="terms-container">
 
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-newspaper"></i>
-          </div>
-          <h3 class="contact-title">Editorial Team</h3>
-          <p class="contact-description">
-            Story tips, press releases, or content suggestions
-          </p>
-          <a href="mailto:editorial@sparrownews.com" class="contact-link">
-            <i class="fas fa-pen"></i>
-            editorial@sparrownews.com
-          </a>
-        </div>
-
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-shield-alt"></i>
-          </div>
-          <h3 class="contact-title">Privacy & Legal</h3>
-          <p class="contact-description">
-            Privacy concerns, legal inquiries, or data requests
-          </p>
-          <a href="mailto:legal@sparrownews.com" class="contact-link">
-            <i class="fas fa-balance-scale"></i>
-            legal@sparrownews.com
-          </a>
-        </div>
-
-        <div class="contact-card">
-          <div class="contact-icon">
-            <i class="fas fa-handshake"></i>
-          </div>
-          <h3 class="contact-title">Partnerships</h3>
-          <p class="contact-description">
-            Collaboration opportunities, sponsorships, or business development
-          </p>
-          <a href="mailto:partnerships@sparrownews.com" class="contact-link">
-            <i class="fas fa-briefcase"></i>
-            partnerships@sparrownews.com
-          </a>
+      <!-- Header -->
+      <div class="terms-header">
+        <h1 class="terms-title">Terms of Service</h1>
+        <p class="terms-subtitle">Please read these terms carefully before using our service</p>
+        <div class="effective-date">
+          <i class="fas fa-calendar-alt"></i>
+          <span>Effective Date: August 02, 2025</span>
         </div>
       </div>
 
-      <!-- Contact Form -->
-      <div class="contact-form-section">
-        <h2 class="form-title">Send Us a Message</h2>
-        <p class="form-subtitle">
-          Prefer to send a direct message? Fill out the form below and we'll get back to you within 24 hours.
-        </p>
+      <!-- Main Content -->
+      <div class="terms-content">
 
-        <form id="contactForm">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="firstName" class="form-label">First Name *</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Your first name" required>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label for="lastName" class="form-label">Last Name *</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Your last name" required>
-              </div>
-            </div>
-          </div>
+        <!-- Introduction -->
+        <div class="terms-intro">
+          Welcome to Sparrow ("we," "us," or "our"). These Terms of Service ("Terms") govern your use of our newsletter service and website located at sparrownews.com. By subscribing to our newsletter or using our website, you agree to be bound by these Terms. If you disagree with any part of these terms, please do not use our service.
+        </div>
 
-          <div class="form-group">
-            <label for="email" class="form-label">Email Address *</label>
-            <input type="email" class="form-control" id="email" name="email" placeholder="your.email@example.com" required>
-          </div>
+        <!-- 1. Acceptance of Terms -->
+        <h2 class="terms-section-title">1. Acceptance of Terms</h2>
+        <p class="terms-text">By accessing and using our service, you accept and agree to be bound by the terms and provisions of this agreement. These Terms apply to all visitors, users, and others who access or use the service.</p>
 
-          <div class="form-group">
-            <label for="subject" class="form-label">Subject *</label>
-            <select class="form-control" id="subject" name="subject" required>
-              <option value="">Please select a topic</option>
-              <option value="subscription">Subscription Question</option>
-              <option value="content">Content Feedback</option>
-              <option value="technical">Technical Issue</option>
-              <option value="partnership">Partnership Inquiry</option>
-              <option value="press">Press/Media</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
+        <!-- 2. Description of Service -->
+        <h2 class="terms-section-title">2. Description of Service</h2>
+        <p class="terms-text">Sparrow provides curated technology newsletters covering artificial intelligence, marketing technology, cryptocurrency, and fintech topics. Our service includes:</p>
+        <ul class="terms-list">
+          <li><strong>Newsletter Delivery:</strong> Regular email newsletters with curated technology content</li>
+          <li><strong>Website Access:</strong> Access to our website and archived newsletter content</li>
+          <li><strong>Curated Content:</strong> AI-powered curation of technology news and insights</li>
+          <li><strong>Expert Analysis:</strong> Commentary and analysis on industry trends and developments</li>
+        </ul>
 
-          <div class="form-group">
-            <label for="message" class="form-label">Message *</label>
-            <textarea class="form-control" id="message" name="message" placeholder="Tell us how we can help you..." required></textarea>
-          </div>
+        <!-- 3. User Accounts and Registration -->
+        <h2 class="terms-section-title">3. User Accounts and Registration</h2>
+        <p class="terms-text">To subscribe to our newsletters, you must provide a valid email address. You agree to:</p>
+        <ul class="terms-list">
+          <li>Provide accurate, current, and complete information during registration</li>
+          <li>Maintain and promptly update your account information</li>
+          <li>Maintain the security of your subscription</li>
+          <li>Accept responsibility for all activities under your subscription</li>
+          <li>Notify us immediately of any unauthorized use of your account</li>
+        </ul>
 
-          <button type="submit" class="btn btn-primary">
-            <i class="fas fa-paper-plane me-2"></i>
-            Send Message
-          </button>
-        </form>
+        <!-- 4. User Obligations and Prohibited Uses -->
+        <h2 class="terms-section-title">4. User Obligations and Prohibited Uses</h2>
+        <p class="terms-text">As a user of our service, you agree to use our service only for lawful purposes and in accordance with these Terms. You agree not to:</p>
+        <ul class="terms-list">
+          <li><strong>Redistribute Content:</strong> Share, republish, or distribute our newsletter content without authorization</li>
+          <li><strong>Commercial Use:</strong> Use our content for commercial purposes without written permission</li>
+          <li><strong>Automated Access:</strong> Use robots, spiders, or other automated means to access our service</li>
+          <li><strong>Harmful Activities:</strong> Transmit viruses, malware, or any other harmful code</li>
+          <li><strong>False Information:</strong> Provide false or misleading information when subscribing</li>
+          <li><strong>Interference:</strong> Interfere with or disrupt our service or servers</li>
+          <li><strong>Legal Violations:</strong> Violate any applicable laws or regulations</li>
+        </ul>
+
+        <!-- 5. Intellectual Property Rights -->
+        <h2 class="terms-section-title">5. Intellectual Property Rights</h2>
+        <p class="terms-text">All content provided through our service is protected by intellectual property laws. This includes:</p>
+
+        <div class="highlight-box">
+          <h4>Our Content Includes:</h4>
+          <p class="terms-text" style="margin-bottom: 0;">Newsletter articles, analysis, commentary, graphics, logos, design elements, software, and all other materials on our website and in our newsletters.</p>
+        </div>
+
+        <p class="terms-text">You are granted a limited, non-exclusive, non-transferable license to:</p>
+        <ul class="terms-list">
+          <li>Read and view our content for personal, non-commercial use</li>
+          <li>Share brief excerpts (up to 150 words) with proper attribution</li>
+          <li>Print content for personal reference</li>
+        </ul>
+
+        <p class="terms-text">You may not:</p>
+        <ul class="terms-list">
+          <li>Remove or alter copyright, trademark, or other proprietary notices</li>
+          <li>Create derivative works based on our content</li>
+          <li>Use our content in any way that competes with our business</li>
+          <li>Claim ownership of our content or present it as your own work</li>
+        </ul>
+
+        <!-- 6. Privacy and Data Protection -->
+        <h2 class="terms-section-title">6. Privacy and Data Protection</h2>
+        <p class="terms-text">Your privacy is important to us. Our collection, use, and protection of your personal information is governed by our Privacy Policy, which is incorporated into these Terms by reference. By using our service, you consent to the collection and use of your information as outlined in our Privacy Policy.</p>
+
+        <!-- 7. Subscription and Billing -->
+        <h2 class="terms-section-title">7. Subscription and Billing</h2>
+        <p class="terms-text">Currently, Sparrow newsletters are provided free of charge. However, we reserve the right to introduce paid subscription tiers in the future. If we do:</p>
+        <ul class="terms-list">
+          <li>Existing subscribers will receive at least 30 days advance notice</li>
+          <li>You may choose to upgrade to a paid tier or continue with available free options</li>
+          <li>Billing terms and refund policies will be clearly communicated</li>
+          <li>You may cancel your subscription at any time</li>
+        </ul>
+
+        <!-- 8. Content Disclaimer -->
+        <h2 class="terms-section-title">8. Content Disclaimer</h2>
+        <div class="highlight-box">
+          <h4>Important Notice:</h4>
+          <p class="terms-text" style="margin-bottom: 0;">Our newsletters contain information about technology, finance, and investment topics for educational and informational purposes only. This content should not be considered as professional financial, investment, or legal advice.</p>
+        </div>
+
+        <p class="terms-text">You acknowledge that:</p>
+        <ul class="terms-list">
+          <li>All investment and business decisions are made at your own risk</li>
+          <li>We do not guarantee the accuracy or completeness of any information</li>
+          <li>Technology and market conditions change rapidly</li>
+          <li>You should consult with qualified professionals before making financial decisions</li>
+          <li>Past performance does not guarantee future results</li>
+        </ul>
+
+        <!-- 9. Disclaimers and Limitation of Warranties -->
+        <h2 class="terms-section-title">9. Disclaimers and Limitation of Warranties</h2>
+        <p class="terms-text">Our service is provided "as is" and "as available" without warranties of any kind, either express or implied. We specifically disclaim:</p>
+        <ul class="terms-list">
+          <li><strong>Accuracy:</strong> Any warranty regarding the accuracy, reliability, or completeness of content</li>
+          <li><strong>Availability:</strong> Guarantees of uninterrupted or error-free service</li>
+          <li><strong>Merchantability:</strong> Warranties of merchantability or fitness for a particular purpose</li>
+          <li><strong>Results:</strong> Any guarantee of specific outcomes from using our content</li>
+          <li><strong>Third-Party Content:</strong> Content accuracy from external sources we reference</li>
+        </ul>
+
+        <!-- 10. Limitation of Liability -->
+        <h2 class="terms-section-title">10. Limitation of Liability</h2>
+        <p class="terms-text">To the maximum extent permitted by applicable law, Sparrow and its affiliates, officers, directors, employees, and agents shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including without limitation:</p>
+        <ul class="terms-list">
+          <li>Loss of profits, revenue, or business opportunities</li>
+          <li>Loss of data or information</li>
+          <li>Investment losses or financial damages</li>
+          <li>Cost of procurement of substitute services</li>
+          <li>Loss of goodwill or reputation</li>
+        </ul>
+
+        <p class="terms-text">In no event shall our total liability exceed the amount paid by you, if any, for accessing our service during the twelve months preceding the claim.</p>
+
+        <!-- 11. Indemnification -->
+        <h2 class="terms-section-title">11. Indemnification</h2>
+        <p class="terms-text">You agree to defend, indemnify, and hold harmless Sparrow and its affiliates from and against any claims, damages, costs, and expenses (including reasonable attorneys' fees) arising from or related to:</p>
+        <ul class="terms-list">
+          <li>Your use of our service</li>
+          <li>Your violation of these Terms</li>
+          <li>Your violation of any rights of another person or entity</li>
+          <li>Any content you submit or transmit through our service</li>
+        </ul>
+
+        <!-- 12. Termination -->
+        <h2 class="terms-section-title">12. Termination</h2>
+        <p class="terms-text">Either party may terminate this agreement at any time:</p>
+
+        <div class="highlight-box">
+          <h4>How to Unsubscribe:</h4>
+          <p class="terms-text" style="margin-bottom: 0;">You can unsubscribe from our newsletters at any time by clicking the unsubscribe link in any email or by contacting us directly at hello@sparrownews.com.</p>
+        </div>
+
+        <p class="terms-text">We may terminate or suspend your access immediately, without prior notice, if you breach these Terms. Upon termination:</p>
+        <ul class="terms-list">
+          <li>Your right to use our service ceases immediately</li>
+          <li>All provisions that should survive termination shall remain in effect</li>
+          <li>We may delete your account information (subject to legal requirements)</li>
+        </ul>
+
+        <!-- 13. Changes to Terms -->
+        <h2 class="terms-section-title">13. Changes to Terms</h2>
+        <p class="terms-text">We reserve the right to modify or replace these Terms at any time. If a revision is material, we will:</p>
+        <ul class="terms-list">
+          <li>Provide at least 30 days notice before new terms take effect</li>
+          <li>Send notification to your registered email address</li>
+          <li>Post notice on our website</li>
+          <li>Allow you to opt-out if you disagree with changes</li>
+        </ul>
+
+        <p class="terms-text">Your continued use of our service after changes take effect constitutes acceptance of the new Terms.</p>
+
+        <!-- 14. Governing Law and Jurisdiction -->
+        <h2 class="terms-section-title">14. Governing Law and Jurisdiction</h2>
+        <p class="terms-text">These Terms shall be interpreted and governed by the laws of [Your Jurisdiction], without regard to its conflict of law provisions. Any legal action or proceeding arising under these Terms will be brought exclusively in the courts of [Your Jurisdiction], and you consent to the jurisdiction of such courts.</p>
+
+        <!-- 15. Dispute Resolution -->
+        <h2 class="terms-section-title">15. Dispute Resolution</h2>
+        <p class="terms-text">We encourage you to contact us first to resolve any disputes. If we cannot resolve a dispute through direct communication:</p>
+        <ul class="terms-list">
+          <li>We both agree to attempt mediation before pursuing litigation</li>
+          <li>Any arbitration will be conducted under the rules of [Arbitration Organization]</li>
+          <li>Arbitration will take place in [Your Location]</li>
+          <li>Each party will bear their own costs unless otherwise awarded</li>
+        </ul>
+
+        <!-- 16. Severability -->
+        <h2 class="terms-section-title">16. Severability</h2>
+        <p class="terms-text">If any provision of these Terms is held to be invalid, illegal, or unenforceable, the remaining provisions shall remain in full force and effect. The invalid provision shall be replaced with a valid provision that most closely approximates the intent of the original provision.</p>
+
+        <!-- 17. Force Majeure -->
+        <h2 class="terms-section-title">17. Force Majeure</h2>
+        <p class="terms-text">We shall not be liable for any failure to perform our obligations under these Terms if such failure results from circumstances beyond our reasonable control, including but not limited to natural disasters, war, terrorism, labor disputes, or technical failures.</p>
+
+        <!-- 18. Entire Agreement -->
+        <h2 class="terms-section-title">18. Entire Agreement</h2>
+        <p class="terms-text">These Terms, together with our Privacy Policy, constitute the entire agreement between you and Sparrow regarding your use of our service and supersede all prior agreements and understandings, whether written or oral.</p>
+
+        <!-- 19. Contact Information -->
+        <h2 class="terms-section-title">19. Contact Information</h2>
+        <p class="terms-text">If you have any questions about these Terms of Service, please contact us using the information provided below. We will respond to all inquiries within 5 business days.</p>
+
+        <div class="highlight-box">
+          <h4>Contact Details:</h4>
+          <ul class="terms-list" style="margin-bottom: 0;">
+            <li><strong>General Inquiries:</strong> hello@sparrownews.com</li>
+            <li><strong>Legal Questions:</strong> legal@sparrownews.com</li>
+            <li><strong>Privacy Concerns:</strong> privacy@sparrownews.com</li>
+          </ul>
+        </div>
+
+        <!-- 20. Acknowledgment -->
+        <h2 class="terms-section-title">20. Acknowledgment</h2>
+        <p class="terms-text">By subscribing to our newsletter or using our website, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service. You also acknowledge that you have read and understood our Privacy Policy.</p>
+
       </div>
 
-      <!-- FAQ Section -->
-      <div class="faq-section">
-        <h2 class="faq-title">Frequently Asked Questions</h2>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            How often do you send newsletters?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>We send our main Sparrow newsletter weekly, typically on Thursdays. Specialized newsletters (AI, Marketing, Crypto, FinTech) are sent based on significant developments in each field, usually 2-3 times per week.</p>
-          </div>
+      <!-- Contact Card -->
+      <div class="contact-card">
+        <div class="contact-icon">
+          <i class="fas fa-gavel"></i>
         </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            Can I unsubscribe at any time?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Absolutely! You can unsubscribe at any time by clicking the unsubscribe link at the bottom of any newsletter, or by emailing us at hello@sparrownews.com.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            Do you offer premium subscriptions?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Currently, Sparrow is completely free. We're focused on building the best possible newsletter experience. If we introduce premium features in the future, all current subscribers will receive advance notice.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            How do you curate your content?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>We use AI to scan hundreds of technology sources daily, then our editorial team reviews and contextualizes the most important stories. This ensures you get both comprehensive coverage and expert analysis.</p>
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question" onclick="toggleFAQ(this)">
-            Can I suggest a story or source?
-            <i class="fas fa-chevron-down"></i>
-          </button>
-          <div class="faq-answer">
-            <p>Yes! We welcome story tips and source suggestions. Please email our editorial team at editorial@sparrownews.com with any stories you think our readers would find valuable.</p>
-          </div>
-        </div>
+        <h3 class="contact-title">Questions About Terms?</h3>
+        <p class="contact-text">Need clarification on our terms of service? We're here to help with any legal questions.</p>
+        <a href="mailto:legal@sparrownews.com" class="contact-email">legal@sparrownews.com</a>
       </div>
+
     </div>
   </section>
 
@@ -635,12 +757,19 @@
         <div class="footer-logo">
           <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
         </div>
-        <div class="footer-links">
-          <a href="{{ url_for('privacy') }}">Privacy Policy</a>
-          <a href="{{ url_for('terms') }}">Terms of Service</a>
-          <a href="{{ url_for('contact') }}">Contact</a>
+      </div>
+
+      <!-- Footer Links Section -->
+      <div class="footer-links-section">
+        <div class="footer-links-container">
+          <div class="footer-links">
+              <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+              <a href="{{ url_for('terms') }}">Terms of Service</a>
+              <a href="{{ url_for('contact') }}">Contact</a>
+          </div>
         </div>
       </div>
+
       <div class="footer-bottom">
         <p>&copy; 2025 Sparrow. All rights reserved.</p>
       </div>
@@ -649,46 +778,41 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    // FAQ Toggle Functionality
-    function toggleFAQ(button) {
-      const answer = button.nextElementSibling;
-      const isActive = button.classList.contains('active');
+    // Animated background particles
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = 30;
 
-      // Close all FAQ items
-      document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
-      document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('active'));
-
-      // Open clicked item if it wasn't already active
-      if (!isActive) {
-        button.classList.add('active');
-        answer.classList.add('active');
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        bgAnimation.appendChild(particle);
       }
     }
 
-    // Contact Form Submission
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
+    // Initialize particles when page loads
+    document.addEventListener('DOMContentLoaded', createParticles);
 
-      // Get form data
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
 
-      // Here you would typically send the data to your server
-      // For now, we'll show a success message
-      alert('Thank you for your message! We\'ll get back to you within 24 hours.');
-
-      // Reset form
-      this.reset();
-    });
-
-    // Form validation styling
-    const inputs = document.querySelectorAll('.form-control');
-    inputs.forEach(input => {
-      input.addEventListener('blur', function() {
-        if (this.checkValidity()) {
-          this.style.borderColor = 'var(--accent-color)';
-        } else {
-          this.style.borderColor = '#dc3545';
+          // Close mobile menu after clicking
+          const navbarToggler = document.querySelector('.navbar-toggler');
+          const navbarCollapse = document.querySelector('.navbar-collapse');
+          if (navbarCollapse.classList.contains('show')) {
+            navbarToggler.click();
+          }
         }
       });
     });
