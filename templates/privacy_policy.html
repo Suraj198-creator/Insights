@@ -65,7 +65,7 @@
       100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 
-    /* Navigation */
+    /* Navigation - Consistent with index.html */
     .navbar {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
@@ -94,14 +94,15 @@
     }
 
     .navbar-logo {
-      height: 70px;
+      height: 40px;
       width: auto;
       max-width: 200px;
       object-fit: contain;
       position: relative;
-      top: -5px;
+      top: -2px;
     }
 
+    /* Remove default list styling */
     .navbar-nav {
       list-style: none;
       margin: 0;
@@ -112,36 +113,38 @@
       list-style: none;
     }
 
-    .nav-btn {
-      background: transparent;
-      border: 1px solid var(--card-border);
+    /* Professional text-only navigation links */
+    .nav-link {
       color: var(--text-secondary);
-      padding: 0.5rem 1.25rem;
-      border-radius: 25px;
+      text-decoration: none;
       font-weight: 500;
-      margin-left: 0.75rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-      display: inline-block;
       font-size: 0.95rem;
+      margin-left: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .nav-btn:hover {
-      background: var(--card-bg);
+    .nav-link:hover {
       color: var(--accent-color);
-      border-color: var(--accent-color);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(193, 155, 90, 0.2);
       text-decoration: none;
     }
 
-    .nav-btn:focus {
-      outline: none;
-      box-shadow: 0 0 0 2px rgba(193, 155, 90, 0.3);
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
     }
 
-    /* Mobile navigation */
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu styling */
     .navbar-toggler {
       border: none;
       padding: 0.25rem 0.5rem;
@@ -166,6 +169,7 @@
       height: 1.5rem;
     }
 
+    /* Mobile navigation */
     @media (max-width: 991px) {
       .navbar-collapse {
         margin-top: 1rem;
@@ -178,12 +182,10 @@
         align-items: flex-start;
       }
 
-      .nav-btn {
-        margin: 0.25rem 0;
+      .nav-link {
+        margin: 0.5rem 0;
         margin-left: 0;
         display: block;
-        text-align: center;
-        width: 100%;
       }
     }
 
@@ -191,6 +193,7 @@
     .privacy-section {
       padding: 6rem 0 4rem;
       min-height: 100vh;
+      padding-top: 120px; /* Account for fixed navbar */
     }
 
     .privacy-container {
@@ -487,23 +490,7 @@
         flex-direction: column;
         gap: 1rem;
       }
-    }
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .footer-content {
-        flex-direction: column;
-        text-align: center;
-      }
-
-      .footer-links {
-        flex-direction: column;
-        gap: 1rem;
-      }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
       .privacy-title {
         font-size: 2.5rem;
       }
@@ -523,14 +510,28 @@
   <div class="bg-animation" id="bgAnimation"></div>
 
   <!-- Navigation -->
-
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
-      <a class="navbar-brand" href="{{ url_for('index')}}">
+      <a class="navbar-brand" href="{{ url_for('index') }}">
         <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
       </a>
-      <div class="ms-auto">
-        <a class="nav-btn" href="{{ url_for('index') }}">Back to Home</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#hero">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#sample">Sample</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -656,7 +657,7 @@
   </section>
 
   <!-- Footer -->
-
+  <footer class="footer">
     <div class="container">
       <div class="footer-content">
         <div class="footer-logo">
@@ -698,21 +699,49 @@
       }
     }
 
-    // Initialize particles when page loads
-    document.addEventListener('DOMContentLoaded', createParticles);
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Enhanced smooth scrolling for both same-page and cross-page navigation
+    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+        const href = this.getAttribute('href');
+
+        // Check if it's a same-page anchor link (starts with #)
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            // Close mobile menu after clicking
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+              navbarToggler.click();
+            }
+          }
         }
+        // For cross-page links (contains both URL and #), let the browser handle navigation
       });
+    });
+
+    // Handle scrolling to anchor on page load (for cross-page navigation)
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+
+      // Check if there's a hash in the URL
+      if (window.location.hash) {
+        setTimeout(() => {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100);
+      }
     });
   </script>
 </body>
