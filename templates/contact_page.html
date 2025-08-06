@@ -36,12 +36,47 @@
       overflow-x: hidden;
     }
 
-    /* Navigation */
+    /* Animated background particles */
+    .bg-animation {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: var(--accent-color);
+      border-radius: 50%;
+      animation: float 20s infinite linear;
+      opacity: 0.7;
+      box-shadow: 0 0 4px rgba(193, 155, 90, 0.5);
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Navigation - Professional Style */
     .navbar {
       background: var(--card-bg);
       backdrop-filter: blur(10px);
       border-bottom: 1px solid var(--card-border);
       padding: 0.75rem 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
     }
 
     .navbar-brand {
@@ -49,6 +84,13 @@
       align-items: center;
       gap: 0.75rem;
       text-decoration: none;
+      position: relative;
+      z-index: 1001;
+    }
+
+    .navbar-brand:hover {
+      text-decoration: none;
+      opacity: 0.8;
     }
 
     .navbar-logo {
@@ -56,36 +98,102 @@
       width: auto;
       max-width: 200px;
       object-fit: contain;
+      position: relative;
+      top: -2px;
     }
 
-    .nav-btn {
-      background: transparent;
-      border: 1px solid var(--card-border);
+    /* Remove default list styling */
+    .navbar-nav {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-item {
+      list-style: none;
+    }
+
+    /* Professional text-only navigation links */
+    .nav-link {
       color: var(--text-secondary);
-      padding: 0.5rem 1.25rem;
-      border-radius: 25px;
-      font-weight: 500;
-      margin-left: 0.75rem;
-      transition: all 0.3s ease;
-      cursor: pointer;
       text-decoration: none;
-      display: inline-block;
+      font-weight: 500;
       font-size: 0.95rem;
+      margin-left: 2rem;
+      transition: all 0.3s ease;
+      position: relative;
     }
 
-    .nav-btn:hover {
-      background: var(--card-bg);
+    .nav-link:hover {
       color: var(--accent-color);
-      border-color: var(--accent-color);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(193, 155, 90, 0.2);
       text-decoration: none;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: width 0.3s ease;
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    /* Hamburger menu styling */
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.5rem;
+      background: transparent;
+      transition: all 0.3s ease;
+      color: var(--text-primary);
+    }
+
+    .navbar-toggler:hover {
+      background: var(--card-bg);
+      border-radius: 8px;
+    }
+
+    .navbar-toggler:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(193, 155, 90, 0.3);
+    }
+
+    .navbar-toggler-icon {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28245, 241, 235, 0.75%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    /* Mobile navigation */
+    @media (max-width: 991px) {
+      .navbar-collapse {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid var(--card-border);
+      }
+
+      .navbar-nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-link {
+        margin: 0.5rem 0;
+        margin-left: 0;
+        display: block;
+      }
     }
 
     /* Content Styling */
     .content-section {
       padding: 6rem 0 4rem;
       min-height: 80vh;
+      padding-top: 120px; /* Account for fixed navbar */
     }
 
     .page-title {
@@ -198,106 +306,6 @@
     .contact-link:hover {
       color: var(--warm-beige);
       transform: translateY(-2px);
-    }
-
-    /* Contact Form */
-    .contact-form-section {
-      max-width: 800px;
-      margin: 0 auto;
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 3rem;
-    }
-
-    .form-title {
-      font-size: 2rem;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .form-subtitle {
-      text-align: center;
-      color: var(--text-secondary);
-      margin-bottom: 3rem;
-    }
-
-    .form-group {
-      margin-bottom: 2rem;
-    }
-
-    .form-label {
-      display: block;
-      margin-bottom: 0.5rem;
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .form-control {
-      background: rgba(193, 155, 90, 0.1) !important;
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-      color: var(--text-primary) !important;
-      padding: 1rem 1.5rem;
-      border-radius: 12px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-
-    .form-control:focus {
-      outline: none;
-      border-color: var(--accent-color);
-      box-shadow: 0 0 0 3px rgba(193, 155, 90, 0.1);
-      background: rgba(193, 155, 90, 0.15) !important;
-      color: var(--text-primary) !important;
-    }
-
-    .form-control::placeholder {
-      color: var(--text-secondary);
-    }
-
-    textarea.form-control {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .btn-primary {
-      background: var(--primary-gradient);
-      border: none;
-      padding: 1rem 2.5rem;
-      border-radius: 60px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      color: var(--warm-beige);
-      width: 100%;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(193, 155, 90, 0.4);
-      color: var(--warm-beige);
-    }
-
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(245,241,235,0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .btn-primary:hover::before {
-      left: 100%;
     }
 
     /* FAQ Section */
@@ -417,11 +425,6 @@
 
     /* Responsive Design */
     @media (max-width: 768px) {
-      .contact-form-section {
-        padding: 2rem;
-        margin: 0 1rem;
-      }
-
       .page-title {
         font-size: 2rem;
       }
@@ -438,14 +441,32 @@
   </style>
 </head>
 <body>
+  <!-- Background Animation -->
+  <div class="bg-animation" id="bgAnimation"></div>
+
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark">
     <div class="container">
       <a class="navbar-brand" href="{{ url_for('index') }}">
         <img src="static/images/sparrow_logo.png" alt="Sparrow Logo" class="navbar-logo">
       </a>
-      <div class="ms-auto">
-        <a class="nav-btn" href="{{ url_for('index') }}">Back to Home</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#hero">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#features">Features</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}#sample">Sample</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -518,18 +539,17 @@
         </div>
       </div>
 
-
       <!-- FAQ Section -->
       <div class="faq-section">
         <h2 class="faq-title">Frequently Asked Questions</h2>
-        
+
         <div class="faq-item">
           <button class="faq-question" onclick="toggleFAQ(this)">
             How often do you send newsletters?
             <i class="fas fa-chevron-down"></i>
           </button>
           <div class="faq-answer">
-            <p>We send our main Sparrow newsletters (AI, Marketing, Crypto, FinTech) are sent based on developments in each field, usually 3-5 times per week.</p>
+            <p>We send our main Sparrow newsletters (AI, Marketing, Crypto, FinTech) based on developments in each field, usually 3-5 times per week.</p>
           </div>
         </div>
 
@@ -569,7 +589,7 @@
             <i class="fas fa-chevron-down"></i>
           </button>
           <div class="faq-answer">
-            <p>Yes! We welcome story tips and source suggestions. Please email our editorial team at editorial@sparrownews.com with any stories you think our readers would find valuable.</p>
+            <p>Yes! We welcome story tips and source suggestions. Please email our editorial team at editorial@sparrow-insights.com with any stories you think our readers would find valuable.</p>
           </div>
         </div>
       </div>
@@ -597,15 +617,30 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Animated background particles
+    function createParticles() {
+      const bgAnimation = document.getElementById('bgAnimation');
+      const particleCount = 50;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+        particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        bgAnimation.appendChild(particle);
+      }
+    }
+
     // FAQ Toggle Functionality
     function toggleFAQ(button) {
       const answer = button.nextElementSibling;
       const isActive = button.classList.contains('active');
-      
+
       // Close all FAQ items
       document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
       document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('active'));
-      
+
       // Open clicked item if it wasn't already active
       if (!isActive) {
         button.classList.add('active');
@@ -613,32 +648,49 @@
       }
     }
 
-    // Contact Form Submission
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Get form data
-      const formData = new FormData(this);
-      const data = Object.fromEntries(formData);
-      
-      // Here you would typically send the data to your server
-      // For now, we'll show a success message
-      alert('Thank you for your message! We\'ll get back to you within 3-5 business days.');
-      
-      // Reset form
-      this.reset();
+    // Enhanced smooth scrolling for both same-page and cross-page navigation
+    document.querySelectorAll('a[href*="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+
+        // Check if it's a same-page anchor link (starts with #)
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+
+            // Close mobile menu after clicking
+            const navbarToggler = document.querySelector('.navbar-toggler');
+            const navbarCollapse = document.querySelector('.navbar-collapse');
+            if (navbarCollapse && navbarCollapse.classList.contains('show')) {
+              navbarToggler.click();
+            }
+          }
+        }
+        // For cross-page links (contains both URL and #), let the browser handle navigation
+      });
     });
 
-    // Form validation styling
-    const inputs = document.querySelectorAll('.form-control');
-    inputs.forEach(input => {
-      input.addEventListener('blur', function() {
-        if (this.checkValidity()) {
-          this.style.borderColor = 'var(--accent-color)';
-        } else {
-          this.style.borderColor = '#dc3545';
-        }
-      });
+    // Initialize particles and handle cross-page navigation
+    document.addEventListener('DOMContentLoaded', function() {
+      createParticles();
+
+      // Check if there's a hash in the URL for cross-page navigation
+      if (window.location.hash) {
+        setTimeout(() => {
+          const target = document.querySelector(window.location.hash);
+          if (target) {
+            target.scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        }, 100);
+      }
     });
   </script>
 </body>
